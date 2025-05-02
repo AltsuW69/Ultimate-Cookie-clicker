@@ -36,7 +36,7 @@
       right: 10px;
     }
 
-    #send img {
+    #btnCookie img {
       width: 230px;
       height: 230px;
       transition: transform 0.1s;
@@ -44,7 +44,7 @@
 
     }
 
-    #send {
+    #btnCookie {
       background: none;
       border: none;
       cursor: pointer;
@@ -52,6 +52,14 @@
       position: relative;
       z-index: 1000;
       border-radius: 50%;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    button:focus {
+      outline: none;
     }
 
     @keyframes pop {
@@ -96,7 +104,7 @@
       font-size: 16px;
     }
 
-    #send img {
+    #btnCookie img {
       width: 160px;
       height: 160px;
     }
@@ -128,7 +136,7 @@
   <h1>The Ultimate Cookie Clicker</h1>
   <h2>Click the cookie to get a cookie!</h2>
   
-  <button id="send">
+  <button id="btnCookie">
       <img src="Cookie.png" alt="Cookie image not found" />
     </button>
     

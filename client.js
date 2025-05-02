@@ -24,12 +24,12 @@ function connect() {
         setTimeout(connect, 1000);
     };
 
-    const btnCookie = document.getElementById('send');
+    const btnCookie = document.getElementById('btnCookie');
     btnCookie.onclick = () => {
         ws.send("btnCookie_pressed");
     
         // Animate main cookie image
-        const img = document.querySelector('#send img');
+        const img = document.querySelector('#btnCookie img');
         img.classList.add('cookie-pop');
         img.addEventListener('animationend', () => {
             img.classList.remove('cookie-pop');
@@ -48,7 +48,7 @@ function connect() {
             mini.style.setProperty('--dy', dy);
     
             // Place in center of cookie button
-            const btn = document.getElementById('send');
+            const btn = document.getElementById('btnCookie');
             const rect = img.getBoundingClientRect();
             const scrollX = window.scrollX;
             const scrollY = window.scrollY;
