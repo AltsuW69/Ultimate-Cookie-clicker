@@ -20,7 +20,7 @@ function connect() {
 
     ws.onclose = () => {
         console.log('Disconnected. Reconnecting...');
-        setTimeout(location.reload, 1000);
+        ws.send("disconnect")
         setTimeout(connect, 1000);
     };
 

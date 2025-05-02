@@ -37,6 +37,9 @@ wss.on('connection', (socket) => {
     if (msg === "connect") {
       console.log("Client connected");
     }
+    if (msg === "disconnect") {
+        console.log("Client disconnected");
+    }
     else if (msg === "btnCookie_pressed") {
       cookies++;
     }
