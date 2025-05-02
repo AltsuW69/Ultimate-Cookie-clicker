@@ -20,7 +20,7 @@ function connect() {
 
     const btnCookie = document.getElementById('send');
     btnCookie.onclick = () => {
-        ws.send("increment");
+        ws.send("btnCookie_pressed");
     
         // Animate main cookie image
         const img = document.querySelector('#send img');
