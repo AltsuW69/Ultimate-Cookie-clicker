@@ -10,12 +10,6 @@ function connect() {
         // Update cookie count display
         const cookiesDiv = document.getElementById('cookies');
         cookiesDiv.textContent = `Cookies: ${event.data}`;
-    
-        // Optional: still log messages if needed
-        const messages = document.getElementById('messages');
-        const newMessage = document.createElement('div');
-        newMessage.textContent = `Updated to: ${event.data}`;
-        messages.appendChild(newMessage);
     };
     
 
@@ -24,7 +18,8 @@ function connect() {
         setTimeout(connect, 1000);
     };
 
-    document.getElementById('send').onclick = () => {
+    const btnCookie = document.getElementById('send');
+    btnCookie.onclick = () => {
         ws.send("increment");
     
         // Animate main cookie image
@@ -34,12 +29,12 @@ function connect() {
             img.classList.remove('cookie-pop');
         }, { once: true });
     
-        // Create flying cookies (e.g., 5)
+        // Create little lying cookies
         for (let i = 0; i < 10; i++) {
             const mini = document.createElement('img');
-            mini.src = "Cookie.png"; // reuse same image
+            mini.src = "Cookie.png"; 
             mini.className = 'flying-cookie';
-    
+
             // Random direction offsets
             const dx = (Math.random() - 0.5) * 600 + 'px';
             const dy = (Math.random() - 0.5) * 600 + 'px';
@@ -61,6 +56,7 @@ function connect() {
     
             // Remove after animation
             setTimeout(() => mini.remove(), 800);
+
         }
     };
     
