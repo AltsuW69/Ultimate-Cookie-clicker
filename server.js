@@ -5,7 +5,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -68,7 +67,7 @@ process.on('SIGTERM', () => {
   process.exit();
 });
 
-const PORT = 3000;
+const PORT = process.env.NODE_ENV == "production" ? 80 : 8081;
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

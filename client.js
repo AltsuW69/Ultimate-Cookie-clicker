@@ -1,5 +1,10 @@
 function connect() {
-    const ws = new WebSocket('ws://localhost:3000');
+    let ws;
+    if (window.location.protocol === 'https:') {
+        ws = new WebSocket(`wss://${window.location.hostname}`);
+    } else {
+        ws = new WebSocket(`ws://${window.location.hostname}:8081`);
+    }
 
     ws.onopen = () => {
         console.log('Connected to server');
@@ -59,9 +64,6 @@ function connect() {
             setTimeout(() => mini.remove(), 800);
 
         }
-    };
-    
-    
+    };   
 }
-
-connect();
+connect()
