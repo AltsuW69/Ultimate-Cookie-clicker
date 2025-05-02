@@ -1,4 +1,7 @@
 function connect() {
+    let maxFlyingCookies = 30;
+    let activeFlyingCookies = 0;
+    let JustClicked = false;
     let ws;
     if (window.location.protocol === 'https:') {
         ws = new WebSocket(`wss://${window.location.hostname}`);
@@ -25,44 +28,59 @@ function connect() {
     };
 
     const btnCookie = document.getElementById('btnCookie');
+    btnCookie.addEventListener("pointerdown", (e) => {
+        if (e.pointerType === 'mouse' || e.pointerType === 'touch') {
+            isPhysicalClick = true;
+          }
+        });
+
     btnCookie.onclick = () => {
-        ws.send("btnCookie_pressed");
-    
-        // Animate main cookie image
-        const img = document.querySelector('#btnCookie img');
-        img.classList.add('cookie-pop');
-        img.addEventListener('animationend', () => {
-            img.classList.remove('cookie-pop');
-        }, { once: true });
-    
-        // Create little lying cookies
-        for (let i = 0; i < 10; i++) {
-            const mini = document.createElement('img');
-            mini.src = "Cookie.png"; 
-            mini.className = 'flying-cookie';
+        if (isPhysicalClick) {
+            isPhysicalClick = false;
+            if (JustClicked) return;
+            ws.send("btnCookie_pressed");
+            JustClicked = true;
+        
+            // Animate main cookie image
+            const img = document.querySelector('#btnCookie img');
+            img.classList.add('cookie-pop');
+            img.addEventListener('animationend', () => {
+                img.classList.remove('cookie-pop');
+            }, { once: true });
+        
+            // Create little lying cookies
+            if (activeFlyingCookies < maxFlyingCookies) {
+                for (let i = 0; i < 10; i++) {
+                    const mini = document.createElement('img');
+                    mini.src = "Cookie.png"; 
+                    mini.className = 'flying-cookie';
+                    activeFlyingCookies++;
 
-            // Random direction offsets
-            const dx = (Math.random() - 0.5) * 600 + 'px';
-            const dy = (Math.random() - 0.5) * 600 + 'px';
-            mini.style.setProperty('--dx', dx);
-            mini.style.setProperty('--dy', dy);
-    
-            // Place in center of cookie button
-            const btn = document.getElementById('btnCookie');
-            const rect = img.getBoundingClientRect();
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
+                    // Random direction offsets
+                    const dx = (Math.random() - 0.5) * 600 + 'px';
+                    const dy = (Math.random() - 0.5) * 600 + 'px';
+                    mini.style.setProperty('--dx', dx);
+                    mini.style.setProperty('--dy', dy);
+            
+                    // Place in center of cookie button
+                    const btn = document.getElementById('btnCookie');
+                    const rect = img.getBoundingClientRect();
+                    const scrollX = window.scrollX;
+                    const scrollY = window.scrollY;
 
-            // Set starting position at center of cookie image
-            mini.style.left = rect.left + rect.width / 2 + scrollX + 'px';
-            mini.style.top = rect.top + rect.height / 2 + scrollY + 'px';
-            mini.style.position = 'absolute';
-    
-            document.body.appendChild(mini);
-    
-            // Remove after animation
-            setTimeout(() => mini.remove(), 800);
-
+                    // Set starting position at center of cookie image
+                    mini.style.left = rect.left + rect.width / 2 + scrollX + 'px';
+                    mini.style.top = rect.top + rect.height / 2 + scrollY + 'px';
+                    mini.style.position = 'absolute';
+            
+                    document.body.appendChild(mini);
+            
+                    // Remove after animation
+                    setTimeout(() => activeFlyingCookies--, 200)
+                    setTimeout(() => mini.remove(), 1000);
+                    setTimeout(() => JustClicked = false, 70);
+                }
+            }
         }
     };   
 }
