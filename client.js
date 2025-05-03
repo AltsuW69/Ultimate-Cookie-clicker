@@ -37,9 +37,9 @@ function connect() {
     btnCookie.onclick = () => {
         if (isPhysicalClick) {
             isPhysicalClick = false;
-            if (JustClicked) return;
+            //if (JustClicked) return;
             ws.send("btnCookie_pressed");
-            JustClicked = true;
+            //JustClicked = true;
         
             // Animate main cookie image
             const img = document.querySelector('#btnCookie img');
@@ -78,7 +78,7 @@ function connect() {
                     // Remove after animation
                     setTimeout(() => activeFlyingCookies--, 200)
                     setTimeout(() => mini.remove(), 1000);
-                    setTimeout(() => JustClicked = false, 70);
+                    //setTimeout(() => JustClicked = false, 70);
                 }
             }
         }
